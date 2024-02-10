@@ -96,7 +96,7 @@ def compare_algorithms(algorithms, input_sizes):
     plt.tight_layout()
     plt.show()
 
-# input_sizes = [1000, 5000, 7500]
+# input_sizes = [250000,500000,750000,1000000]
 # compare_algorithms(sorting_algorithms, input_sizes)
 
 input_sizes = [250000,500000,750000,1000000]
