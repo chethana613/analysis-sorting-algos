@@ -99,5 +99,5 @@ def compare_algorithms(algorithms, input_sizes):
 # input_sizes = [1000, 5000, 7500]
 # compare_algorithms(sorting_algorithms, input_sizes)
 
-input_sizes = [250000, 500000, 750000, 1000000]
+input_sizes = [250000,23]
 compare_algorithms(optimized_sorting_algorithms, input_sizes)
