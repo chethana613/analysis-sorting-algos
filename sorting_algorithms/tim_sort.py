@@ -44,7 +44,7 @@ def merge(arr, left, middle, right):
     return arr
 
 
-def timsort(arr):
+def tim_sort(arr):
     min_run = 32
     n = len(arr)
 
@@ -60,20 +60,3 @@ def timsort(arr):
         size *= 2
 
     return arr
-
-'''
-# Test cases
-test_cases = {
-    "Small Array": np.random.randint(0, 100, 100),
-    "Medium Array": np.random.randint(0, 1000, 1000),
-    "Large Array": np.random.randint(0, 10000, 10000)
-}
-
-# Perform sorting and measure time
-for case_name, case_data in test_cases.items():
-    start_time = time.time()
-    timsort(case_data.copy())
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    print("********* Tim Sort ***********")
-    print(f"{case_name}: {elapsed_time:.5f} seconds") '''

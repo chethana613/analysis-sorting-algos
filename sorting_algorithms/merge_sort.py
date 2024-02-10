@@ -1,51 +1,41 @@
+
 def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
+	if len(arr) > 1:
 
-    mid = len(arr) // 2
-    left_half = arr[:mid]
-    right_half = arr[mid:]
+		# Finding the mid of the array
+		mid = len(arr)//2
 
-    left_half = merge_sort(left_half)
-    right_half = merge_sort(right_half)
+		# Dividing the array elements
+		L = arr[:mid]
 
-    return merge(left_half, right_half)
+		# Into 2 halves
+		R = arr[mid:]
 
-def merge(left, right):
-    result = []
-    left_idx, right_idx = 0, 0
+		# Sorting the first half
+		merge_sort(L)
 
-    while left_idx < len(left) and right_idx < len(right):
-        if left[left_idx] < right[right_idx]:
-            result.append(left[left_idx])
-            left_idx += 1
-        else:
-            result.append(right[right_idx])
-            right_idx += 1
+		# Sorting the second half
+		merge_sort(R)
 
-    while left_idx < len(left):
-        result.append(left[left_idx])
-        left_idx += 1
+		i = j = k = 0
 
-    while right_idx < len(right):
-        result.append(right[right_idx])
-        right_idx += 1
+		# Copy data to temp arrays L[] and R[]
+		while i < len(L) and j < len(R):
+			if L[i] <= R[j]:
+				arr[k] = L[i]
+				i += 1
+			else:
+				arr[k] = R[j]
+				j += 1
+			k += 1
 
-    return result
-'''
-# Test cases
-test_cases = {
-    "Small Array": np.random.randint(0, 100, 100),
-    "Medium Array": np.random.randint(0, 1000, 1000),
-    "Large Array": np.random.randint(0, 10000, 10000)
-}
+		# Checking if any element was left
+		while i < len(L):
+			arr[k] = L[i]
+			i += 1
+			k += 1
 
-# Perform sorting and measure time
-for case_name, case_data in test_cases.items():
-    start_time = time.time()
-    merge_sort(case_data.copy())
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    print("********* Merge Sort ***********")
-    print(f"{case_name}: {elapsed_time:.5f} seconds")
-    '''
+		while j < len(R):
+			arr[k] = R[j]
+			j += 1
+			k += 1

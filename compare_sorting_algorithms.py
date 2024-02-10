@@ -2,20 +2,13 @@ import numpy as np
 import time
 import matplotlib.pyplot as plt
 from sorting_algorithms.quick_sort import quick_sort
+from sorting_algorithms.quick_sort_optimized import quick_sort_optimized
 from sorting_algorithms.heap_sort import heap_sort
 from sorting_algorithms.merge_sort import merge_sort
 from sorting_algorithms.radix_sort import radix_sort
+from sorting_algorithms.bucket_sort_optimized import bucket_sort_optimized
 from sorting_algorithms.bucket_sort import bucket_sort
-from sorting_algorithms.timsort import timsort
-
-sorting_algorithms = {
-    "Quick Sort": quick_sort,
-    "Heap Sort": heap_sort,
-    "Merge Sort": merge_sort,
-    "Radix Sort": radix_sort,
-    "Bucket Sort": bucket_sort,
-    "TimSort": timsort
-}
+from sorting_algorithms.tim_sort import tim_sort
 
 def generate_test_arrays(criteria, n):
     test_arrays = []
@@ -38,10 +31,6 @@ def generate_test_arrays(criteria, n):
         test_arrays.append(arr)
     return test_arrays
 
-
-# Define input sizes
-input_sizes = [1000, 2000]
-
 # Define criteria
 criteria = {
     "Rand Int[0...n]": 1,
@@ -52,36 +41,63 @@ criteria = {
     "In-order Integers": 6,
 }
 
-# Run sorting algorithms and measure execution time
-execution_times = {algo_name: {criterion_name: [] for criterion_name in criteria} for algo_name in sorting_algorithms}
+sorting_algorithms = {
+    "Quick Sort": quick_sort,
+    "Quick Sort - Optimized": quick_sort_optimized,
+    "Heap Sort": heap_sort,
+    "Merge Sort": merge_sort,
+    "Radix Sort": radix_sort,
+    "Bucket Sort": bucket_sort,
+    "Bucket Sort - Optimized": bucket_sort_optimized,
+    "TimSort": tim_sort,
+}
 
-for algo_name, sorting_algo in sorting_algorithms.items():
-    print("******************" + str(algo_name) + "******************")
-    for criterion_name, criterion_value in criteria.items():
-        for n in input_sizes:
-            test_arrays = generate_test_arrays(criterion_value, n)
-            start_time = time.time()
-            for test_array in test_arrays:
-                sorting_algo(test_array.copy())
-            end_time = time.time()
-            elapsed_time = end_time - start_time
-            print(criterion_name +":"+ str(elapsed_time))
-            execution_times[algo_name][criterion_name].append(elapsed_time)
+optimized_sorting_algorithms = {
+    "Quick Sort - Optimized": quick_sort_optimized,
+    "Heap Sort": heap_sort,
+    "Merge Sort": merge_sort,
+    "Radix Sort": radix_sort,
+    "Bucket Sort - Optimized": bucket_sort_optimized,
+    "TimSort": tim_sort,
+}
 
-# Plotting
-plt.figure(figsize=(16, 10))
-plot_index = 1
+def compare_algorithms(algorithms, input_sizes):
+    # Run sorting algorithms and measure execution time
+    execution_times = {algo_name: {criterion_name: [] for criterion_name in criteria} for algo_name in algorithms}
 
-for criterion_name in criteria:
-    plt.subplot(3, 3, plot_index)
-    for algo_name in sorting_algorithms:
-        plt.plot(input_sizes, execution_times[algo_name][criterion_name], label=algo_name)
-    plt.title(criterion_name)
-    plt.xlabel('Input Size')
-    plt.ylabel('Execution Time (seconds)')
-    plt.legend()
-    plt.grid(True)
-    plot_index += 1
+    for algo_name, sorting_algo in algorithms.items():
+        print("******************" + str(algo_name) + "******************")
+        for criterion_name, criterion_value in criteria.items():
+            for n in input_sizes:
+                test_arrays = generate_test_arrays(criterion_value, n)
+                start_time = time.time()
+                for test_array in test_arrays:
+                    sorting_algo(test_array.copy())
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                print(criterion_name +":"+ str(elapsed_time))
+                execution_times[algo_name][criterion_name].append(elapsed_time)
 
-plt.tight_layout()
-plt.show()
+    # Plotting
+    plt.figure(figsize=(16, 10))
+    plot_index = 1
+
+    for criterion_name in criteria:
+        plt.subplot(3, 3, plot_index)
+        for algo_name in algorithms:
+            plt.plot(input_sizes, execution_times[algo_name][criterion_name], label=algo_name)
+        plt.title(criterion_name)
+        plt.xlabel('Input Size')
+        plt.ylabel('Execution Time (seconds)')
+        plt.legend()
+        plt.grid(True)
+        plot_index += 1
+
+    plt.tight_layout()
+    plt.show()
+
+# input_sizes = [1000, 5000, 7500]
+# compare_algorithms(sorting_algorithms, input_sizes)
+
+input_sizes = [250000, 500000, 750000, 1000000]
+compare_algorithms(optimized_sorting_algorithms, input_sizes)

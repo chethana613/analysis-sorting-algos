@@ -1,28 +1,49 @@
-import numpy as np
+# Python3 implementation of QuickSort
+import sys
 
-def quick_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    pivot = arr[len(arr) // 2]
-    left = [x for x in arr if x < pivot]
-    middle = [x for x in arr if x == pivot]
-    right = [x for x in arr if x > pivot]
-    return quick_sort(left) + middle + quick_sort(right)
+sys.setrecursionlimit(10**6)
+# Function to find the partition position
+def partition(array, low, high):
 
-'''
-# Test cases
-test_cases = {
-    "Small Array": np.random.randint(0, 100, 100),
-    "Medium Array": np.random.randint(0, 1000, 1000),
-    "Large Array": np.random.randint(0, 10000, 10000)
-}
+	# Choose the rightmost element as pivot
+	pivot = array[high]
 
-# Perform sorting and measure time
-for case_name, case_data in test_cases.items():
-    start_time = time.time()
-    quick_sort(case_data.copy())
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    print("********* Quick Sort ***********")
-    print(f"{case_name}: {elapsed_time:.5f} seconds")
-'''
+	# Pointer for greater element
+	i = low - 1
+
+	# Traverse through all elements
+	# compare each element with pivot
+	for j in range(low, high):
+		if array[j] <= pivot:
+
+			# If element smaller than pivot is found
+			# swap it with the greater element pointed by i
+			i = i + 1
+
+			# Swapping element at i with element at j
+			(array[i], array[j]) = (array[j], array[i])
+
+	# Swap the pivot element with
+	# the greater element specified by i
+	(array[i + 1], array[high]) = (array[high], array[i + 1])
+
+	# Return the position from where partition is done
+	return i + 1
+
+# Function to perform quicksort
+def quicksort(array, low, high):
+	if low < high:
+
+		# Find pivot element such that
+		# element smaller than pivot are on the left
+		# element greater than pivot are on the right
+		pi = partition(array, low, high)
+
+		# Recursive call on the left of pivot
+		quicksort(array, low, pi - 1)
+
+		# Recursive call on the right of pivot
+		quicksort(array, pi + 1, high)
+		
+def quick_sort(array):
+	return quicksort(array, 0, len(array)-1)

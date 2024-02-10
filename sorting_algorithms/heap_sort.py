@@ -1,44 +1,43 @@
+# Python program for implementation of heap Sort
 
-def heapify(arr, n, i):
-    largest = i
-    l = 2 * i + 1
-    r = 2 * i + 2
+# To heapify subtree rooted at index i.
+# n is size of heap
 
-    if l < n and arr[i] < arr[l]:
-        largest = l
 
-    if r < n and arr[largest] < arr[r]:
-        largest = r
+def heapify(arr, N, i):
+	largest = i # Initialize largest as root
+	l = 2 * i + 1	 # left = 2*i + 1
+	r = 2 * i + 2	 # right = 2*i + 2
 
-    if largest != i:
-        arr[i], arr[largest] = arr[largest], arr[i]
-        heapify(arr, n, largest)
+	# See if left child of root exists and is
+	# greater than root
+	if l < N and arr[largest] < arr[l]:
+		largest = l
+
+	# See if right child of root exists and is
+	# greater than root
+	if r < N and arr[largest] < arr[r]:
+		largest = r
+
+	# Change root, if needed
+	if largest != i:
+		arr[i], arr[largest] = arr[largest], arr[i] # swap
+
+		# Heapify the root.
+		heapify(arr, N, largest)
+
+# The main function to sort an array of given size
 
 
 def heap_sort(arr):
-    n = len(arr)
+	N = len(arr)
 
-    for i in range(n // 2 - 1, -1, -1):
-        heapify(arr, n, i)
+	# Build a maxheap.
+	for i in range(N//2 - 1, -1, -1):
+		heapify(arr, N, i)
 
-    for i in range(n - 1, 0, -1):
-        arr[i], arr[0] = arr[0], arr[i]
-        heapify(arr, i, 0)
+	# One by one extract elements
+	for i in range(N-1, 0, -1):
+		arr[i], arr[0] = arr[0], arr[i] # swap
+		heapify(arr, i, 0)
 
-'''
-# Test cases
-test_cases = {
-    "Small Array": np.random.randint(0, 100, 100),
-    "Medium Array": np.random.randint(0, 1000, 1000),
-    "Large Array": np.random.randint(0, 10000, 10000)
-}
-
-# Perform sorting and measure time
-for case_name, case_data in test_cases.items():
-    start_time = time.time()
-    heap_sort(case_data.copy())
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    print("********* Heap Sort ***********")
-    print(f"{case_name}: {elapsed_time:.5f} seconds")
-'''
