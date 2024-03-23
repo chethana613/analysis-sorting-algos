@@ -1,3 +1,5 @@
+#Quick sort implementation - Pivot is placed on the last element
+
 import sys
 sys.setrecursionlimit(10**6)
 def partition(array, low, high):
