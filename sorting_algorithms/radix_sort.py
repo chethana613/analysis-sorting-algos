@@ -1,3 +1,5 @@
+# Radix sort implementation
+
 def countingSort(arr, exp1):
 
 	n = len(arr)
@@ -12,7 +14,6 @@ def countingSort(arr, exp1):
 	for i in range(1, 10):
 		count[i] += count[i - 1]
 
-
 	i = n - 1
 	while i >= 0:
 		index = arr[i] // exp1
@@ -23,7 +24,6 @@ def countingSort(arr, exp1):
 	i = 0
 	for i in range(0, len(arr)):
 		arr[i] = output[i]
-
 
 def radix_sort(arr):
 	max1 = max(arr)
