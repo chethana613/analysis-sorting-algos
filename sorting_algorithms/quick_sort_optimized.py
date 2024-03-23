@@ -1,3 +1,5 @@
+#Quick sort implementation - Pivot is placed on the middle element, Array is Divided instead of partitioning
+
 def quick_sort_optimized(arr):
     if len(arr) <= 1:
         return arr
