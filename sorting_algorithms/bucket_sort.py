@@ -1,4 +1,5 @@
-#Bucket Sort implementation
+#Bucket Sort implementation - Buckets of size(Max of list/ Total length)
+#Done to distribute the elements of the input list evenly across the buckets and ensure that each bucket covers a relatively uniform range of values. 
 
 def insertion_sort(b):
 	for i in range(1, len(b)):
