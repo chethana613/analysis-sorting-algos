@@ -1,3 +1,7 @@
+#Bucket sort implementation - Range
+#This approach is taken to adapt the bucket sizes dynamically based on the range of values present in the input array.
+
+
 def bucket_sort_optimized(arr):
     max_value = max(arr)
     min_value = min(arr)
